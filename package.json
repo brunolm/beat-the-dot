@@ -6,13 +6,14 @@
     "url": "https://github.com/brunolm/beat-the-dot"
   },
   "devDependencies": {
+    "bunyan": "1.8.10",
+    "exp": "^44.0.0",
     "jest-expo": "18.0.0",
     "jest-expo-ts": "18.0.1",
     "react-native-scripts": "0.0.40",
     "react-native-typescript-transformer": "^1.0.11",
     "react-test-renderer": "16.0.0-alpha.12",
-    "tslint-config-prettier": "^1.1.0",
-    "bunyan": "1.8.10"
+    "tslint-config-prettier": "^1.1.0"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -21,7 +22,7 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "x": "react-native-scripts"
+    "exppublish": "exp publish"
   },
   "jest": {
     "preset": "jest-expo-ts",
