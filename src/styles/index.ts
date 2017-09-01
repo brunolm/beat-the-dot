@@ -1,4 +1,4 @@
-import { Platform, StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   flexCol: {
@@ -13,10 +13,6 @@ export default StyleSheet.create({
   main: {
     flex: 1,
   },
-  header: {
-    paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
-    backgroundColor: '#1fbcd2',
-  },
   fullWidthButton: {
     alignSelf: 'stretch',
   },
@@ -27,5 +23,8 @@ export default StyleSheet.create({
   },
   beats: {
     fontSize: 22,
+  },
+  container: {
+    flex: 1,
   },
 });

@@ -13,6 +13,7 @@
     "react-native-scripts": "0.0.40",
     "react-native-typescript-transformer": "^1.0.11",
     "react-test-renderer": "16.0.0-alpha.12",
+    "tslint": "^5.7.0",
     "tslint-config-prettier": "^1.1.0"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -50,9 +51,9 @@
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",
     "react-native-material-buttons": "^0.4.1",
-    "react-native-material-tabs": "^3.0.2",
     "react-native-material-textfield": "^0.9.0",
     "react-native-menu": "^0.23.0",
+    "react-navigation": "^1.0.0-beta.11",
     "tslib": "^1.7.1",
     "util": "^0.10.3"
   }

@@ -1,41 +1,52 @@
 import * as React from 'react';
 
-import { Text, View } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 
-import MaterialTabs from 'react-native-material-tabs';
-import styles from '../styles';
+import Beats from './Beats';
+import MonthGrid from './MonthGrid';
+import Settings from './Settings';
+import { TabNavigator } from 'react-navigation';
 
-interface Props {
-  onTabChange: (tabIndex: number) => void;
-}
+const TabNav = TabNavigator({
+  Beats: {
+    screen: Beats,
+    navigationOptions: {
+      title: 'Beats',
+    },
+  },
+  MonthGrid: {
+    screen: MonthGrid,
+    navigationOptions: {
+      title: 'Month',
+    },
+  },
+  Settings: {
+    screen: Settings,
+    navigationOptions: {
+      title: 'Settings',
+    },
+  },
+}, {
+  tabBarPosition: 'top',
+  swipeEnabled: true,
+  tabBarOptions: {
+    showIcon: false,
+    activeTintColor: '#fff',
+    inactiveTintColor: 'rgba(255,255,255,.5)',
+    indicatorStyle: {
+      backgroundColor: 'white',
+    },
+    style: {
+      backgroundColor: 'black',
+      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
+    },
+  },
+});
 
-export default class HeaderComponent extends React.Component<Props, any> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedTabIndex: 0,
-    };
-  }
-
-  setTab = (tabIndex) => {
-    this.setState({ selectedTabIndex: tabIndex })
-
-    this.props.onTabChange(tabIndex);
-  }
-
+export default class HeaderComponent extends React.Component<any, any> {
   render() {
     return (
-      <View style={ styles.header }>
-        <MaterialTabs
-          items={ ['Beats', 'Month', 'Settings'] }
-          selectedIndex={ this.state.selectedTabIndex }
-          onChange={ this.setTab }
-          barColor="#1fbcd2"
-          indicatorColor="#1fbcfa"
-          activeTextColor="white"
-        />
-      </View>
+      <TabNav />
     );
   }
 }
