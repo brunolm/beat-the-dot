@@ -1,6 +1,6 @@
 {
   "name": "beat-the-dot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "email": "brunolm7@gmail.com",
     "name": "BrunoLM",
@@ -18,7 +18,7 @@
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "lint": "tslint src/**",
-    "exppublish": "exp publish"
+    "exp": "exp"
   },
   "jest": {
     "preset": "jest-expo-ts",
