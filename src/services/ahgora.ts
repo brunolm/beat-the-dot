@@ -24,7 +24,7 @@ function getText(element, text = '') {
     return text + element.rawText;
   }
 
-  for (let e of element.childNodes) {
+  for (const e of element.childNodes) {
     text = getText(e, text);
   }
 
@@ -32,7 +32,7 @@ function getText(element, text = '') {
 }
 
 function parseHTML(html: string): Promise<{ summary: string, times: any }> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const document = HTMLParser.parse(html);
 
     const tableTotalize = document.querySelector('#tableTotalize') as HTMLTableElement;
@@ -58,22 +58,22 @@ function parseHTML(html: string): Promise<{ summary: string, times: any }> {
         const beatsRaw = getText(element.querySelectorAll('td')[2]).trim();
 
         times[key] = {
-          date: moment(key, 'DD/MM/YYYY'),
           beats: beatsRaw.length ? beatsRaw.split(/\s*,\s*/g) : [],
-          beatsRaw: beatsRaw,
+          beatsRaw,
+          date: moment(key, 'DD/MM/YYYY'),
           total: getText(element.querySelectorAll('td')[6]).trim(),
         };
 
         times[key].patch = {
           correct: {
+            reason: getText(element.querySelectorAll('td')[5]).trim(),
             time: getText(element.querySelectorAll('td')[3]).trim(),
             type: getText(element.querySelectorAll('td')[4]).trim(),
-            reason: getText(element.querySelectorAll('td')[5]).trim(),
           },
           wrong: {
+            reason: '',
             time: '',
             type: '',
-            reason: '',
           },
         };
       }
@@ -87,7 +87,7 @@ function parseHTML(html: string): Promise<{ summary: string, times: any }> {
 }
 
 function toRawParams(obj) {
-  return Object.keys(obj).map(key => `${key}=${encodeURIComponent(obj[key])}`).join(`&`);
+  return Object.keys(obj).map((key) => `${key}=${encodeURIComponent(obj[key])}`).join(`&`);
 }
 
 export async function login() {
@@ -142,7 +142,7 @@ export async function parseResult(times) {
       return `You can go to lunch at ${options.lunchAt}`;
 
     case 2:
-      let backFromLunchAt = moment(t2);
+      const backFromLunchAt = moment(t2);
       backFromLunchAt.add(options.lunchTime, 'minutes');
       return `You can come back from lunch at ${moment(backFromLunchAt).format(hourMinuteFormat)} (±${options.tolerance})`;
 
@@ -172,7 +172,7 @@ export function hoursWorkedToday(beats: string[]) {
     return '0';
   }
 
-  const [t1, t2, t3, t4] = beats.map(b => moment.duration(`${b}:00`)) as any[];
+  const [t1, t2, t3, t4] = beats.map((b) => moment.duration(`${b}:00`)) as any[];
   switch (beats.length) {
     case 1:
       return '0~';

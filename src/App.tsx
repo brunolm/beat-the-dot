@@ -10,6 +10,6 @@ export default class App extends React.Component<any, any> {
       <View style={ styles.main }>
         <Header />
       </View>
-    )
+    );
   }
 }

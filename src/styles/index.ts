@@ -1,6 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  beats: {
+    fontSize: 22,
+  },
+  beatsContainer: {
+    flex: 1,
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  container: {
+    flex: 1,
+  },
   flexCol: {
     backgroundColor: '#eeeeee',
     flex: 1,
@@ -10,21 +21,10 @@ export default StyleSheet.create({
     paddingRight: 15,
     paddingTop: 30,
   },
-  main: {
-    flex: 1,
-  },
   fullWidthButton: {
     alignSelf: 'stretch',
   },
-  beatsContainer: {
-    flex: 1,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  beats: {
-    fontSize: 22,
-  },
-  container: {
+  main: {
     flex: 1,
   },
 });

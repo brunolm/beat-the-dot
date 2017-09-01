@@ -13,8 +13,8 @@ export default class SettingsComponent extends React.Component<any, any> {
 
     this.state = {
       settingsCompany: '',
-      settingsUser: '',
       settingsPass: '',
+      settingsUser: '',
     };
   }
 
@@ -23,16 +23,16 @@ export default class SettingsComponent extends React.Component<any, any> {
 
     this.setState({
       settingsCompany: settings.company,
-      settingsUser: settings.user,
       settingsPass: settings.pass,
+      settingsUser: settings.user,
     });
   }
 
   save = async () => {
     await settingsService.set({
       company: this.state.settingsCompany,
-      user: this.state.settingsUser,
       pass: this.state.settingsPass,
+      user: this.state.settingsUser,
     });
   }
 

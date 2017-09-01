@@ -4,8 +4,8 @@ const options = {
   lunchAt: '11:30',
   lunchTime: 60,
   tolerance: 10,
-  workHours: '08:00',
   verbose: true,
+  workHours: '08:00',
 };
 
 export async function get() {

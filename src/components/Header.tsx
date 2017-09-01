@@ -9,38 +9,38 @@ import { TabNavigator } from 'react-navigation';
 
 const TabNav = TabNavigator({
   Beats: {
-    screen: Beats,
     navigationOptions: {
       title: 'Beats',
     },
+    screen: Beats,
   },
   MonthGrid: {
-    screen: MonthGrid,
     navigationOptions: {
       title: 'Month',
     },
+    screen: MonthGrid,
   },
   Settings: {
-    screen: Settings,
     navigationOptions: {
       title: 'Settings',
     },
+    screen: Settings,
   },
 }, {
-  tabBarPosition: 'top',
   swipeEnabled: true,
   tabBarOptions: {
-    showIcon: false,
     activeTintColor: '#fff',
     inactiveTintColor: 'rgba(255,255,255,.5)',
     indicatorStyle: {
       backgroundColor: 'white',
     },
+    showIcon: false,
     style: {
       backgroundColor: 'black',
       paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
     },
   },
+  tabBarPosition: 'top',
 });
 
 export default class HeaderComponent extends React.Component<any, any> {

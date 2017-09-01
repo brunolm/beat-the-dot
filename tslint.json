@@ -1,20 +1,19 @@
 {
   "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-config-prettier"
+    "tslint:recommended"
   ],
   "rules": {
+    "interface-name": [false],
     "max-line-length": [
       500
     ],
     "member-access": false,
-    "object-literal-sort-keys": false,
     "one-line": [
       true,
       "check-open-brace",
       "check-whitespace"
     ],
+    "ordered-imports": false,
     "quotemark": [
       true,
       "single",
