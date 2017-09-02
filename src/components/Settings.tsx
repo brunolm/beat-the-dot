@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as settingsService from '../services/settings';
 
-import { ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 
+import HourMinuteInput from './HourMinuteInput';
 import { RaisedTextButton } from 'react-native-material-buttons';
 import { TextField } from 'react-native-material-textfield';
 import styles from '../styles';
@@ -13,8 +14,12 @@ export default class SettingsComponent extends React.Component<any, any> {
 
     this.state = {
       settingsCompany: '',
+      settingsLunchAt: '',
+      settingsLunchTime: 60,
       settingsPass: '',
+      settingsTolerance: 10,
       settingsUser: '',
+      settingsWorkHours: '',
     };
   }
 
@@ -23,16 +28,26 @@ export default class SettingsComponent extends React.Component<any, any> {
 
     this.setState({
       settingsCompany: settings.company,
+      settingsLunchAt: settings.lunchAt,
+      settingsLunchTime: settings.lunchTime,
       settingsPass: settings.pass,
+      settingsTolerance: settings.tolerance,
       settingsUser: settings.user,
+      settingsWorkHours: settings.workHours,
     });
   }
 
   save = async () => {
+    Alert.alert('dsa', JSON.stringify( this.state ));
+
     await settingsService.set({
       company: this.state.settingsCompany,
+      lunchAt: this.state.settingsLunchAt,
+      lunchTime: +this.state.settingsLunchTime,
       pass: this.state.settingsPass,
+      tolerance: +this.state.settingsTolerance,
       user: this.state.settingsUser,
+      workHours: this.state.settingsWorkHours,
     });
   }
 
@@ -63,6 +78,34 @@ export default class SettingsComponent extends React.Component<any, any> {
             secureTextEntry
             value={ this.state.settingsPass }
             onChangeText={ (settingsPass) => this.setState({ settingsPass }) }
+          />
+
+          <TextField
+            keyboardType="numeric"
+            label="Tolerance (minutes)"
+            maxlength={ 3 }
+            value={ this.state.settingsTolerance.toString() }
+            onChangeText={ (settingsTolerance) => this.setState({ settingsTolerance }) }
+          />
+
+          <TextField
+            keyboardType="numeric"
+            label="Lunch interval (minutes)"
+            maxlength={ 3 }
+            value={ this.state.settingsLunchTime.toString() }
+            onChangeText={ (settingsLunchTime) => this.setState({ settingsLunchTime }) }
+          />
+
+          <HourMinuteInput
+            label="Lunch at"
+            onChangeText={ (settingsLunchAt) => this.setState({ settingsLunchAt }) }
+            value={ this.state.settingsLunchAt }
+          />
+
+          <HourMinuteInput
+            label="Work time"
+            onChangeText={ (settingsWorkHours) => this.setState({ settingsWorkHours }) }
+            value={ this.state.settingsWorkHours }
           />
         </ScrollView>
 

@@ -9,8 +9,10 @@ export default StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
-  container: {
+  col: {
+    backgroundColor: 'orange',
     flex: 1,
+    flexDirection: 'column',
   },
   flexCol: {
     backgroundColor: '#eeeeee',
@@ -24,7 +26,16 @@ export default StyleSheet.create({
   fullWidthButton: {
     alignSelf: 'stretch',
   },
+  gridFilterContainer: {
+    alignItems: 'flex-end',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   main: {
     flex: 1,
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
   },
 });

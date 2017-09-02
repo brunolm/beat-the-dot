@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { ScrollView, Text, View } from 'react-native';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { RaisedTextButton } from 'react-native-material-buttons';
 import { TextField } from 'react-native-material-textfield';
 import styles from '../styles';
@@ -16,7 +17,8 @@ export default class MonthGridComponent extends React.Component<any, any> {
       grid: '',
       loaded: false,
       loading: false,
-      monthYear: moment().format('MM-YYYY'),
+      month: moment().format('MM'),
+      year: moment().format('YYYY'),
     };
   }
 
@@ -25,7 +27,7 @@ export default class MonthGridComponent extends React.Component<any, any> {
       loading: true,
     });
 
-    const filterDate = moment(this.state.monthYear, 'MM-YYYY');
+    const filterDate = moment(`${this.state.month}-${this.state.year}`, 'MM-YYYY');
 
     const month = filterDate.format('MM');
     const year = filterDate.format('YYYY');
@@ -43,18 +45,37 @@ export default class MonthGridComponent extends React.Component<any, any> {
   render() {
     return (
       <View style={ styles.flexCol }>
-        <ScrollView>
+        {/* <KeyboardAwareScrollView> */ }
+        <ScrollView style={ styles.col }>
           <Text>{ this.state.grid }</Text>
         </ScrollView>
 
-        <View style={ styles.fullWidthButton }>
-          <TextField
-            label="MM-YYYY"
-            value={ this.state.monthYear }
-            onChangeText={ (monthYear) => this.setState({ monthYear }) }
-          />
-          <RaisedTextButton onPress={ this.fetchDotMonth } raised={ true } title="Get beats" />
+        <View>
+          <View>
+            <View>
+              <TextField
+                autoCorret={ false }
+                keyboardType="numeric"
+                label="MM"
+                value={ this.state.month }
+                onChangeText={ (month) => this.setState({ month }) }
+              />
+            </View>
+            <View>
+              <TextField
+                autoCorret={ false }
+                keyboardType="numeric"
+                label="YYYY"
+                value={ this.state.year }
+                onChangeText={ (year) => this.setState({ year }) }
+              />
+            </View>
+          </View>
+          <View style={ styles.fullWidthButton }>
+            <RaisedTextButton onPress={ this.fetchDotMonth } raised={ true } title="Get beats" />
+          </View>
         </View>
+        {/* </KeyboardAwareScrollView> */ }
       </View>
     );
   }
