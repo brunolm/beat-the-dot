@@ -10,6 +10,7 @@
     "type": "git",
     "url": "https://github.com/brunolm/beat-the-dot"
   },
+  "license": "ISC",
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
@@ -34,33 +35,31 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
-    "@types/jest": "^20.0.2",
-    "@types/react": "^15.0.31",
-    "@types/react-native": "^0.44.12",
-    "@types/react-test-renderer": "^15.5.1",
     "axios": "^0.16.2",
-    "expo": "^18.0.2",
+    "expo": "^19.0.1",
     "fast-html-parser": "^1.0.1",
     "jsdom": "^11.2.0",
     "moment": "^2.18.1",
     "react": "16.0.0-alpha.12",
-    "react-native": "0.45.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-19.0.0.tar.gz",
     "react-native-material-buttons": "^0.4.1",
     "react-native-material-textfield": "^0.9.0",
     "react-native-menu": "^0.23.0",
     "react-navigation": "^1.0.0-beta.11",
     "tslib": "^1.7.1",
+    "typescript": "^2.5.2",
     "util": "^0.10.3"
   },
   "devDependencies": {
+    "@types/jest": "^20.0.8",
+    "@types/react": "^16.0.5",
+    "@types/react-native": "^0.47.9",
     "bunyan": "1.8.10",
     "exp": "^44.0.0",
-    "jest-expo": "18.0.0",
-    "jest-expo-ts": "18.0.1",
-    "react-native-scripts": "0.0.40",
-    "react-native-typescript-transformer": "^1.0.11",
-    "react-test-renderer": "16.0.0-alpha.12",
-    "tslint": "^5.7.0",
-    "tslint-config-prettier": "^1.1.0"
+    "jest-expo": "^20.0.0",
+    "jest-expo-ts": "^20.0.0",
+    "react-native-scripts": "^1.3.0",
+    "react-native-typescript-transformer": "^1.1.3",
+    "tslint": "^5.7.0"
   }
 }
