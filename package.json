@@ -36,7 +36,7 @@
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
     "axios": "^0.16.2",
-    "expo": "^19.0.1",
+    "expo": "^20.1.2",
     "fast-html-parser": "^1.0.1",
     "jsdom": "^11.2.0",
     "moment": "^2.18.1",
