@@ -169,13 +169,13 @@ export async function parseResult(times) {
 
 export function hoursWorkedToday(beats: string[]) {
   if (!beats || !beats.length) {
-    return '0';
+    return '00';
   }
 
   const [t1, t2, t3, t4] = beats.map((b) => moment.duration(`${b}:00`)) as any[];
   switch (beats.length) {
     case 1:
-      return '0~';
+      return '00~';
     case 2:
       return moment.utc(moment.duration(t2 - t1).asMilliseconds()).format('HH:mm');
     case 3:
