@@ -10,7 +10,6 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   col: {
-    backgroundColor: 'orange',
     flex: 1,
     flexDirection: 'column',
   },
@@ -21,7 +20,7 @@ export default StyleSheet.create({
     paddingBottom: 30,
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 30,
+    paddingTop: 15,
   },
   fullWidthButton: {
     alignSelf: 'stretch',
@@ -33,6 +32,10 @@ export default StyleSheet.create({
   },
   main: {
     flex: 1,
+  },
+  materialLabel: {
+    color: '#999999',
+    fontSize: 12,
   },
   row: {
     flex: 1,

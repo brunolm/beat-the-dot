@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { TextField } from 'react-native-material-textfield';
-import { View } from 'react-native';
+import { Picker, Text, View } from 'react-native';
+
+import styles from '../styles';
 
 interface Props {
   label: string;
@@ -10,69 +11,76 @@ interface Props {
 }
 
 interface State {
-  hour: number;
-  minute: number;
-}
-
-interface HourMinuteValue {
-  stateHour?: number;
-  stateMinute?: number;
+  hour: string;
+  minute: string;
 }
 
 export default class HourMinuteInputComponent extends React.Component<Props, State> {
+  hours: any[];
+  minutes: any[];
   constructor(props) {
     super(props);
 
-    const [hourPart, minutePart] = this.props.value.split(':');
-    this.state = {
-      hour: hourPart ? +hourPart : 0,
-      minute: minutePart ? +minutePart : 0,
+    this.state = this.getStateFromProps(this.props);
+
+    this.hours = Array.from({ length: 23 }, (_, i) => i + 1).map((val) => {
+      const value = `0${val}`.slice(-2);
+      return (<Picker.Item key={ `${val}` } label={ value } value={ value } />);
+    });
+
+    this.minutes = Array.from({ length: 60 }, (_, i) => i).map((val) => {
+      const value = `0${val}`.slice(-2);
+      return (<Picker.Item key={ `${val}` } label={ value } value={ value } />);
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.value) {
+      this.setState(this.getStateFromProps(nextProps));
+    }
+  }
+
+  getStateFromProps(props) {
+    const [hour, minute] = props.value.split(':');
+
+    return {
+      hour,
+      minute,
     };
   }
 
-  formatTime({ stateHour, stateMinute }: HourMinuteValue) {
-    const hour = `0${stateHour || this.state.hour}`.slice(-2);
-    const minute = `0${stateMinute || this.state.minute}`.slice(-2);
+  onChangeValue = ({ hour, minute }: { hour?: string; minute?: string; }) => {
+    if (hour) {
+      this.setState({ hour });
+    }
+    else if (minute) {
+      this.setState({ minute });
+    }
 
-    return `${hour}:${minute}`;
-  }
-
-  onChangeHour = (value) => {
-    this.setState({
-      hour: value > 23 ? 23 : value < 0 ? 0 : value,
-    });
-
-    this.props.onChangeText(this.formatTime({ stateHour: value }));
-  }
-
-  onChangeMinute = (value) => {
-    this.setState({
-      minute: value > 59 ? 59 : value < 0 ? 0 : value,
-    });
-
-    this.props.onChangeText(this.formatTime({ stateMinute: value }));
+    const time = `${hour || this.state.hour}:${minute || this.state.minute}`;
+    this.props.onChangeText(time);
   }
 
   render() {
-    const { hour, minute } = this.state;
-
     return (
       <View style={ { flex: 1, flexDirection: 'row' } }>
         <View style={ { flex: 1, flexDirection: 'column', marginRight: 10 } }>
-          <TextField
-            keyboardType="numeric"
-            label={ `${this.props.label} (HH)` }
-            onChangeText={ this.onChangeHour }
-            value={ (hour || '').toString() }
-          />
+          <Text style={ styles.materialLabel }>{ this.props.label } (hour)</Text>
+          <Picker
+            onValueChange={ (hour) => this.onChangeValue({ hour }) }
+            selectedValue={ this.state.hour }
+          >
+            { this.hours }
+          </Picker>
         </View>
         <View style={ { flex: 1, flexDirection: 'column' } }>
-          <TextField
-            keyboardType="numeric"
-            label={ `${this.props.label} (MM)` }
-            onChangeText={ this.onChangeMinute }
-            value={ (minute || '').toString() }
-          />
+          <Text style={ styles.materialLabel }>{ this.props.label } (minute)</Text>
+          <Picker
+            onValueChange={ (minute) => this.onChangeValue({ minute }) }
+            selectedValue={ this.state.minute }
+          >
+            { this.minutes }
+          </Picker>
         </View>
       </View>
     );

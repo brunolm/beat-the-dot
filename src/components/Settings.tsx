@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as settingsService from '../services/settings';
 
-import { Alert, ScrollView, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, ScrollView, Text, View } from 'react-native';
 
+import DatePicker from 'react-native-datepicker';
 import HourMinuteInput from './HourMinuteInput';
 import { RaisedTextButton } from 'react-native-material-buttons';
 import { TextField } from 'react-native-material-textfield';
@@ -14,16 +15,21 @@ export default class SettingsComponent extends React.Component<any, any> {
 
     this.state = {
       settingsCompany: '',
-      settingsLunchAt: '',
+      settingsLunchAt: '11:30',
+      settingsLunchAt2: undefined,
       settingsLunchTime: 60,
       settingsPass: '',
       settingsTolerance: 10,
       settingsUser: '',
-      settingsWorkHours: '',
+      settingsWorkHours: '08:00',
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
+    await this.loadSettings();
+  }
+
+  async loadSettings() {
     const settings = await settingsService.get();
 
     this.setState({
@@ -38,8 +44,6 @@ export default class SettingsComponent extends React.Component<any, any> {
   }
 
   save = async () => {
-    Alert.alert('dsa', JSON.stringify( this.state ));
-
     await settingsService.set({
       company: this.state.settingsCompany,
       lunchAt: this.state.settingsLunchAt,
@@ -49,12 +53,14 @@ export default class SettingsComponent extends React.Component<any, any> {
       user: this.state.settingsUser,
       workHours: this.state.settingsWorkHours,
     });
+
+    Alert.alert('Settings saved!', 'Successfuly saved settings.');
   }
 
   render() {
     return (
-      <View style={ styles.flexCol }>
-        <ScrollView>
+      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={ 64 } style={ { flex: 1 } }>
+        <ScrollView style={ styles.flexCol }>
           <TextField
             autoCapitalize="none"
             autoCorrect={ false }
@@ -107,12 +113,12 @@ export default class SettingsComponent extends React.Component<any, any> {
             onChangeText={ (settingsWorkHours) => this.setState({ settingsWorkHours }) }
             value={ this.state.settingsWorkHours }
           />
-        </ScrollView>
 
-        <View style={ styles.fullWidthButton }>
-          <RaisedTextButton onPress={ this.save } raised={ true } title="Save" />
-        </View>
-      </View>
+          <View style={ styles.fullWidthButton }>
+            <RaisedTextButton onPress={ this.save } raised={ true } title="Save" />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

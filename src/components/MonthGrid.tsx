@@ -4,12 +4,18 @@ import * as moment from 'moment';
 
 import { ScrollView, Text, View } from 'react-native';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import MonthYearInput from './MonthYearInput';
 import { RaisedTextButton } from 'react-native-material-buttons';
-import { TextField } from 'react-native-material-textfield';
 import styles from '../styles';
 
-export default class MonthGridComponent extends React.Component<any, any> {
+interface State {
+  grid: string;
+  loaded: boolean;
+  loading: boolean;
+  monthYear: string;
+}
+
+export default class MonthGridComponent extends React.Component<any, State> {
   constructor(props) {
     super(props);
 
@@ -17,8 +23,7 @@ export default class MonthGridComponent extends React.Component<any, any> {
       grid: '',
       loaded: false,
       loading: false,
-      month: moment().format('MM'),
-      year: moment().format('YYYY'),
+      monthYear: moment().format('MM-YYYY'),
     };
   }
 
@@ -27,10 +32,7 @@ export default class MonthGridComponent extends React.Component<any, any> {
       loading: true,
     });
 
-    const filterDate = moment(`${this.state.month}-${this.state.year}`, 'MM-YYYY');
-
-    const month = filterDate.format('MM');
-    const year = filterDate.format('YYYY');
+    const [month, year] = this.state.monthYear.split('-');
 
     const result = await ahgora.getTimes({ month, year });
     const grid = await ahgora.parseGrid(result.times);
@@ -45,37 +47,21 @@ export default class MonthGridComponent extends React.Component<any, any> {
   render() {
     return (
       <View style={ styles.flexCol }>
-        {/* <KeyboardAwareScrollView> */ }
-        <ScrollView style={ styles.col }>
+        <ScrollView>
+          <View style={ { paddingBottom: 10 } }>
+
+            <View style={ styles.fullWidthButton }>
+              <MonthYearInput
+                label="Year"
+                onChangeText={ (value) => this.setState({ monthYear: value }) }
+                value={ this.state.monthYear }
+              />
+              <RaisedTextButton onPress={ this.fetchDotMonth } raised={ true } title="Get beats" />
+            </View>
+          </View>
+
           <Text>{ this.state.grid }</Text>
         </ScrollView>
-
-        <View>
-          <View>
-            <View>
-              <TextField
-                autoCorret={ false }
-                keyboardType="numeric"
-                label="MM"
-                value={ this.state.month }
-                onChangeText={ (month) => this.setState({ month }) }
-              />
-            </View>
-            <View>
-              <TextField
-                autoCorret={ false }
-                keyboardType="numeric"
-                label="YYYY"
-                value={ this.state.year }
-                onChangeText={ (year) => this.setState({ year }) }
-              />
-            </View>
-          </View>
-          <View style={ styles.fullWidthButton }>
-            <RaisedTextButton onPress={ this.fetchDotMonth } raised={ true } title="Get beats" />
-          </View>
-        </View>
-        {/* </KeyboardAwareScrollView> */ }
       </View>
     );
   }
