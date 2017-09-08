@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as settingsService from '../services/settings';
 
-import { Alert, KeyboardAvoidingView, ScrollView, Text, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, ScrollView, View } from 'react-native';
 
-import DatePicker from 'react-native-datepicker';
 import HourMinuteInput from './HourMinuteInput';
 import { RaisedTextButton } from 'react-native-material-buttons';
 import { TextField } from 'react-native-material-textfield';
@@ -16,7 +15,6 @@ export default class SettingsComponent extends React.Component<any, any> {
     this.state = {
       settingsCompany: '',
       settingsLunchAt: '11:30',
-      settingsLunchAt2: undefined,
       settingsLunchTime: 60,
       settingsPass: '',
       settingsTolerance: 10,
@@ -33,13 +31,13 @@ export default class SettingsComponent extends React.Component<any, any> {
     const settings = await settingsService.get();
 
     this.setState({
-      settingsCompany: settings.company,
-      settingsLunchAt: settings.lunchAt,
-      settingsLunchTime: settings.lunchTime,
-      settingsPass: settings.pass,
-      settingsTolerance: settings.tolerance,
-      settingsUser: settings.user,
-      settingsWorkHours: settings.workHours,
+      settingsCompany: settings.company || '',
+      settingsLunchAt: settings.lunchAt || '11:30',
+      settingsLunchTime: settings.lunchTime || 60,
+      settingsPass: settings.pass || '',
+      settingsTolerance: settings.tolerance || 10,
+      settingsUser: settings.user || '',
+      settingsWorkHours: settings.workHours || '08:00',
     });
   }
 

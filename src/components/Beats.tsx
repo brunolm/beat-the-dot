@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ahgora from '../services/ahgora';
 import * as moment from 'moment';
 
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 
 import { RaisedTextButton } from 'react-native-material-buttons';
 import styles from '../styles';
@@ -26,20 +26,29 @@ export default class BeatsComponent extends React.Component<any, any> {
       loading: true,
     });
 
-    const result = await ahgora.getTimes();
-    const today = ahgora.getToday(result.times);
+    try {
+      const result = await ahgora.getTimes();
+      const today = ahgora.getToday(result.times);
 
-    const message = await ahgora.parseResult(result.times);
-    const hoursWorkedToday = ahgora.hoursWorkedToday(today.beats);
+      const message = await ahgora.parseResult(result.times);
+      const hoursWorkedToday = ahgora.hoursWorkedToday(today.beats);
 
-    this.setState({
-      hoursWorkedToday,
-      lastFetch: moment().format('LT'),
-      loaded: true,
-      loading: false,
-      message,
-      todayBeats: today.beatsRaw,
-    });
+      this.setState({
+        hoursWorkedToday,
+        lastFetch: moment().format('LT'),
+        loaded: true,
+        loading: false,
+        message,
+        todayBeats: today.beatsRaw,
+      });
+    }
+    catch (err) {
+      Alert.alert('Server error', 'Try again later');
+
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   renderByState() {
