@@ -69,7 +69,7 @@ export default class BeatsComponent extends React.Component<any, any> {
 
     return (
       <View>
-        <Text>Click the button to load data</Text>
+        <Text>Click Get Beats to load data</Text>
       </View>
     );
   }
